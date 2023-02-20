@@ -23,7 +23,7 @@ public class HttpControllerTest {
 	}
 	
 	@PutMapping("/http/put")
-	public String putTest() {
+	public String putTest(@RequestBody Member m) {
 		return "put 요청";
 	}
 	
