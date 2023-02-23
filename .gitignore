@@ -4,6 +4,7 @@ application.properties
 email.properties
 .classpath
 .project
+application.yml
 
 ### Eclipse ###
 .metadata
