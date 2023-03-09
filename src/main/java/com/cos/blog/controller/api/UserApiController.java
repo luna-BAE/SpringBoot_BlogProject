@@ -20,9 +20,9 @@ public class UserApiController {
 	private UserService userService;
 	
 	//@Autowired
-	//private HttpSession session;
+	//private HttpSession session; <- 이렇게 하면 session에 user 정보가 담기지 않는다. 왜인지 모르겠다.
 	
-	@PostMapping("/api/user")
+	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save(@RequestBody User user) {
 		
 		user.setRole(RoleType.USER);
@@ -31,17 +31,17 @@ public class UserApiController {
 		
 	}
 	
-	@PostMapping("/api/user/login")
-	public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
-		
-		User principal = userService.로그인(user);
-		
-		if (principal != null) {
-			session.setAttribute("principal", principal);
-		}
-		
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-		
-	}
+//	@PostMapping("/api/user/login")
+//	public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
+//		
+//		User principal = userService.로그인(user);
+//		
+//		if (principal != null) {
+//			session.setAttribute("principal", principal);
+//		}
+//		
+//		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+//		
+//	}
 	
 }
