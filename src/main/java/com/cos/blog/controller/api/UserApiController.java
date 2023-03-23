@@ -37,6 +37,9 @@ public class UserApiController {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
 	//@Autowired
 	//private HttpSession session; <- 이렇게 하면 session에 user 정보가 담기지 않는다. 왜인지 모르겠다.
 	
@@ -55,15 +58,15 @@ public class UserApiController {
 		
 		userService.회원수정(user);
 		
-		UserDetails userDetail = principalDeatilService.loadUserByUsername(user.getUsername());
-		Authentication authentication = new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-		securityContext.setAuthentication(authentication);
-		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-
+//		UserDetails userDetail = principalDeatilService.loadUserByUsername(user.getUsername());
+//		Authentication authentication = new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
+//		SecurityContext securityContext = SecurityContextHolder.getContext();
+//		securityContext.setAuthentication(authentication);
+//		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+//
 //		String encPassword = encoder.encode(user.getPassword());
-//		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 		
